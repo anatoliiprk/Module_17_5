@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.backend.db import engine, Base
 from app.routers.task import router_task
 from app.routers.user import router_user
 
@@ -12,3 +13,5 @@ async def welcome():
 
 app.include_router(router_task)
 app.include_router(router_user)
+
+Base.metadata.create_all(bind=engine)

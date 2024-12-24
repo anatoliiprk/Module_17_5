@@ -64,11 +64,9 @@ async def update_user(db: Annotated[Session, Depends(get_db)], user_id: int, upd
             detail='User was not found'
         )
     else:
-        db.execute(update(User).where(User.id == user_id).values(username=update_user.username,
-                                                                 firstname=update_user.firstname,
+        db.execute(update(User).where(User.id == user_id).values(firstname=update_user.firstname,
                                                                  lastname=update_user.lastname,
-                                                                 age=update_user.age,
-                                                                 slug=slugify(update_user.username)))
+                                                                 age=update_user.age))
         db.commit()
         return {
             'status_code': status.HTTP_200_OK,
